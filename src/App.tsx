@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+"use client"
+import React, {useState, type FC, type ReactNode} from "react"
+import "./App.scss"
+import Select from "./Select"
+import {selectData} from "./Data/select_data";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export interface SelectOption {
+    value: string
+    label: string
+    content?: ReactNode
+    disabled?: boolean
 }
 
-export default App;
+
+const App: FC = () => {
+    const [selectedItem, setSelectedItem] = useState<string>("")
+
+    return (
+        <div className="App" >
+
+            <div className="Container">
+
+                    <h2 className="Title">Select Component</h2>
+                    <div>
+                        <label className="Label">Choose a item:</label>
+                        <Select
+                            options={selectData}
+                            value={selectedItem}
+                            placeholder="Select an item here..."
+                            onSelect={(value) => {
+                                setSelectedItem(value)
+                            }}
+                        />
+                    </div>
+
+            </div>
+        </div>
+    )
+}
+
+export default App
